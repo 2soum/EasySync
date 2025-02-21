@@ -1,6 +1,3 @@
-// components/ShopSyncDialog.tsx
-'use client';
-
 import { useState } from 'react';
 import {
   Dialog,
@@ -12,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Loader2 } from "lucide-react";
+import { Loader2, ExternalLink } from "lucide-react";
 
 interface ShopSyncDialogProps {
   products: any[];
@@ -75,6 +72,32 @@ export function ShopSyncDialog({ products, buttonLabel = "Sync to Shop" }: { pro
           <DialogHeader>
             <DialogTitle>Sync Products to Shop</DialogTitle>
           </DialogHeader>
+          
+          {/* Instructions */}
+          <div className="bg-blue-50 p-4 rounded-lg mb-4 text-sm">
+            <h3 className="font-medium mb-2 text-blue-800">Comment obtenir votre Access Token :</h3>
+            <ol className="list-decimal pl-4 space-y-2 text-blue-700">
+              <li>Allez dans les paramètres de votre boutique Shopify</li>
+              <li>Cliquez sur &quot;Apps et canaux de vente&quot;</li>
+              <li>En bas, cliquez sur &quot;Développer des apps&quot;</li>
+              <li>Créez une nouvelle app</li>
+              <li>Dans &quot;Configuration API&quot;, activez uniquement :
+                <ul className="list-disc pl-4 mt-1 text-blue-600">
+                  <li>write_products</li>
+                </ul>
+              </li>
+              <li>Dans &quot;Clés API&quot;, installez l&apos;app et copiez le &quot;Admin Access Token&quot;</li>
+            </ol>
+            <div className="mt-3 p-3 bg-yellow-50 border border-yellow-200 rounded text-yellow-800">
+              <p className="font-medium">⚠️ Important :</p>
+              <ul className="list-disc pl-4 mt-1 space-y-1">
+                <li>Le token n&apos;est affiché qu&apos;une seule fois lors de sa création</li>
+                <li>Il doit commencer par &quot;shpat_&quot;</li>
+                <li>Si vous le perdez, vous devrez en générer un nouveau</li>
+              </ul>
+            </div>
+          </div>
+
           <div className="space-y-4 py-4">
             {error && (
               <div className="bg-red-500/10 border border-red-500 text-red-500 px-4 py-3 rounded">
@@ -96,7 +119,7 @@ export function ShopSyncDialog({ products, buttonLabel = "Sync to Shop" }: { pro
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="accessToken">Access Token</Label>
+              <Label htmlFor="accessToken">Admin Access Token</Label>
               <Input
                 id="accessToken"
                 type="password"
@@ -122,4 +145,4 @@ export function ShopSyncDialog({ products, buttonLabel = "Sync to Shop" }: { pro
         </DialogContent>
       </Dialog>
     );
-  }
+}
