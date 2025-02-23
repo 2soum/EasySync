@@ -13,9 +13,10 @@ import { Loader2, ExternalLink } from "lucide-react";
 
 interface ShopSyncDialogProps {
   products: any[];
+  buttonLabel?: string;
 }
 
-export function ShopSyncDialog({ products, buttonLabel = "Sync to Shop" }: { products: any[], buttonLabel?: string }) {
+export function ShopSyncDialog({ products, buttonLabel = "Sync to Shop" }: ShopSyncDialogProps) {
     const [shopUrl, setShopUrl] = useState('');
     const [accessToken, setAccessToken] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -127,6 +128,7 @@ export function ShopSyncDialog({ products, buttonLabel = "Sync to Shop" }: { pro
                 onChange={(e) => setAccessToken(e.target.value)}
               />
             </div>
+
             <Button
               onClick={handleSync}
               className="w-full bg-emerald-500 hover:bg-emerald-600 text-white"
