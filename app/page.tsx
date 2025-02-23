@@ -140,17 +140,18 @@ export default function Home() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-xl text-gray-400 mb-12"
+          className="text-xl text-gray-400 mb-8"
         >
-          Import Shopify products seamlessly. Start by entering your store URL.
+          Clone any Shopify store's products instantly into your own store.
         </motion.p>
+        
 
         {/* Search Input */}
         <div className="max-w-2xl mx-auto">
           <div className="relative flex items-center">
             <Input
               type="text"
-              placeholder="Enter your Shopify store URL..."
+              placeholder="Paste any Shopify store URL (e.g., store.myshopify.com)..."
               value={shopUrl}
               onChange={(e) => setShopUrl(e.target.value)}
               className="w-full bg-[#1A1A1A] border-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-lg py-6 pr-12"
@@ -164,6 +165,9 @@ export default function Home() {
               {isLoading ? <Loader2 className="animate-spin" /> : <Search />}
             </Button>
           </div>
+          <p className="text-xs text-gray-500 mt-2 text-left">
+            Just enter a store URL and we'll fetch all available products for you to import
+          </p>
         </div>
       </div>
 
@@ -178,18 +182,22 @@ export default function Home() {
       {/* Products Grid */}
       {products.length > 0 && (
         <div className="container mx-auto px-4">
-          {/* Show main actions only when no selection */}
           {selectedProducts.length === 0 && (
-            <div className="flex justify-end gap-4 mb-8">
-              <Button
-                onClick={() => handleExportCSV(products)}
-                variant="outline"
-                className="bg-[#1A1A1A] border-gray-700 hover:bg-gray-800 text-gray-200"
-              >
-                <Download className="mr-2 h-4 w-4" />
-                Export All
-              </Button>
-              <ShopSyncDialog products={products} buttonLabel="Sync All" />
+            <div className="flex justify-between items-center mb-8">
+              <p className="text-gray-400">
+                {products.length} products found. Select items to import or use bulk actions.
+              </p>
+              <div className="flex gap-4">
+                <Button
+                  onClick={() => handleExportCSV(products)}
+                  variant="outline"
+                  className="bg-[#1A1A1A] border-gray-700 hover:bg-gray-800 text-gray-200"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Export All as CSV
+                </Button>
+                <ShopSyncDialog products={products} buttonLabel="Import All Products" />
+              </div>
             </div>
           )}
 
